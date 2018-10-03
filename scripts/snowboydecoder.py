@@ -15,9 +15,9 @@ logger = logging.getLogger("snowboy")
 logger.setLevel(logging.INFO)
 TOP_DIR = os.path.dirname(os.path.abspath(__file__))
 
-RESOURCE_FILE = os.path.join(TOP_DIR, "resources/common.res")
-DETECT_DING = os.path.join(TOP_DIR, "resources/ding.wav")
-DETECT_DONG = os.path.join(TOP_DIR, "resources/dong.wav")
+RESOURCE_FILE = os.path.join(TOP_DIR, "../resources/common.res")
+DETECT_DING = os.path.join(TOP_DIR, "../resources/ding.wav")
+DETECT_DONG = os.path.join(TOP_DIR, "../resources/dong.wav")
 
 def py_error_handler(filename, line, function, err, fmt):
     pass

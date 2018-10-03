@@ -41,8 +41,26 @@ def second_level_start_callback():
 def second_level_pause_callback():
     if not rospy.is_shutdown():
         msg_send.control_msg = 'pause'
-        pub.publish(msg_send)
+        pubInterrupt.publish(msg_send)
         print('pause...')
+
+def second_level_harder_callback():
+    if not rospy.is_shutdown():
+        msg_send.control_msg = 'harder'
+        pubInterrupt.publish(msg_send)
+        print('harder...')
+
+def second_level_lighter_callback():
+    if not rospy.is_shutdown():
+        msg_send.control_msg = 'lighter'
+        pubInterrupt.publish(msg_send)
+        print('lighter...')
+
+def second_level_controltest_callback():
+    if not rospy.is_shutdown():
+        msg_send.control_msg = 'controltest'
+        pub.publish(msg_send)
+        print('controltest...')
 
 def first_level_callback():
     # start the second level detector, if detected
@@ -51,7 +69,8 @@ def first_level_callback():
     global paused
     paused = False
     # define callbacks
-    second_level_callbacks = [second_level_start_callback, second_level_pause_callback]
+    second_level_callbacks = [second_level_start_callback, second_level_pause_callback,
+    second_level_harder_callback, second_level_lighter_callback, second_level_controltest_callback]
     # Set the signal handler and a 5-second alarm
     signal.signal(signal.SIGALRM, pause_signal_handler)
     signal.alarm(5)
@@ -69,11 +88,14 @@ def hotword():
 
     # model files path
     TOP_DIR = os.path.dirname(os.path.abspath(__file__))
-    FIRST_RESOURCE_FILE1 = os.path.join(TOP_DIR, "resources/models/snowboy.umdl")
-    SECOND_RESOURCE_FILE1 = os.path.join(TOP_DIR, "resources/models/ma_control1.pmdl")
-    SECOND_RESOURCE_FILE2 = os.path.join(TOP_DIR, "resources/models/ma_control2.pmdl")
+    FIRST_RESOURCE_FILE1 = os.path.join(TOP_DIR, "../resources/models/snowboy.umdl")
+    SECOND_RESOURCE_FILE1 = os.path.join(TOP_DIR, "../resources/models/ma_control1.pmdl")
+    SECOND_RESOURCE_FILE2 = os.path.join(TOP_DIR, "../resources/models/ma_control2.pmdl")
+    SECOND_RESOURCE_FILE3 = os.path.join(TOP_DIR, "../resources/models/ma_control3.pmdl")
+    SECOND_RESOURCE_FILE4 = os.path.join(TOP_DIR, "../resources/models/ma_control4.pmdl")
+    SECOND_RESOURCE_FILE5 = os.path.join(TOP_DIR, "../resources/models/ma_control5.pmdl")
     first_models = FIRST_RESOURCE_FILE1
-    second_models = [SECOND_RESOURCE_FILE1, SECOND_RESOURCE_FILE2]
+    second_models = [SECOND_RESOURCE_FILE1, SECOND_RESOURCE_FILE2, SECOND_RESOURCE_FILE3, SECOND_RESOURCE_FILE4, SECOND_RESOURCE_FILE5]
 
     # capture SIGINT signal, e.g., Ctrl+C
     signal.signal(signal.SIGINT, interrupt_signal_handler)
@@ -101,6 +123,7 @@ if __name__ == '__main__':
 
         # define ros node
         pub = rospy.Publisher('hotword', Hotword, queue_size=10)
+        pubInterrupt = rospy.Publisher('hotwordInterrupt', Hotword, queue_size=10)
         rospy.init_node('hotwordNode', anonymous=True)
         msg_send = Hotword()
 

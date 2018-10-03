@@ -12,5 +12,6 @@ lighter
 
 It defines a Hotword.msg
 
-The ROS message name is:
-It includes a string
+The ROS message name is: control_msg
+
+It is string type.

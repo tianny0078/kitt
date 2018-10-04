@@ -33,30 +33,35 @@ def pause_callback():
     return paused
 
 def second_level_start_callback():
+    snowboydecoder.play_audio_file(snowboydecoder.DETECT_DING)
     if not rospy.is_shutdown():
         msg_send.control_msg = 'start'
         pub.publish(msg_send)
         print('start...')
 
 def second_level_pause_callback():
+    snowboydecoder.play_audio_file(snowboydecoder.DETECT_DING)
     if not rospy.is_shutdown():
         msg_send.control_msg = 'pause'
         pubInterrupt.publish(msg_send)
         print('pause...')
 
 def second_level_harder_callback():
+    snowboydecoder.play_audio_file(snowboydecoder.DETECT_DING)
     if not rospy.is_shutdown():
         msg_send.control_msg = 'harder'
         pubInterrupt.publish(msg_send)
         print('harder...')
 
 def second_level_lighter_callback():
+    snowboydecoder.play_audio_file(snowboydecoder.DETECT_DING)
     if not rospy.is_shutdown():
         msg_send.control_msg = 'lighter'
         pubInterrupt.publish(msg_send)
         print('lighter...')
 
 def second_level_controltest_callback():
+    snowboydecoder.play_audio_file(snowboydecoder.DETECT_DING)
     if not rospy.is_shutdown():
         msg_send.control_msg = 'controltest'
         pub.publish(msg_send)
@@ -66,6 +71,7 @@ def first_level_callback():
     # start the second level detector, if detected
     # publish the ros hotword message
     print('Entering second level detector....')
+    snowboydecoder.play_audio_file(snowboydecoder.DETECT_DING)
     global paused
     paused = False
     # define callbacks
@@ -81,6 +87,7 @@ def first_level_callback():
     signal.alarm(0)
     # second_detector.terminate()
     print('Exit Second Level....')
+    snowboydecoder.play_audio_file(snowboydecoder.DETECT_DONG)
     
 
 
